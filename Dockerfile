@@ -62,7 +62,7 @@ VOLUME /consul/data
 # Consul doesn't need root privileges so we run it as the consul user from the
 # entry point script. The entry point script also uses dumb-init as the top-level
 # process to reap any zombie processes created by Consul sub-processes.
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY bootstrap.sh /usr/local/bin/bootstrap.sh
 ENTRYPOINT ["bootstrap.sh"]
 
 # By default you'll get an insecure single-node development server that stores
