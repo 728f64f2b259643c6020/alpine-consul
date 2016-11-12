@@ -37,13 +37,15 @@ RUN apk add --no-cache ca-certificates curl gnupg libcap openssl && \
     rm -rf /root/.gnupg
 
 #
-RUN apk add --no-cache bash wget \
-    && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
-    && chmod +x /usr/local/bin/go-github \
-    && echo "# dumb-init: $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex ".*_amd64$" --limit 1)" \
-    && wget -qO /usr/local/bin/dumb-init $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex ".*_amd64" --limit 1) \
-    && chmod +x /usr/local/bin/dumb-init \
-    && rm -f /usr/local/bin/go-github
+RUN apk add --no-cache bash wget && \
+    cd /tmp/build && \
+    wget -qO /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 && \
+    chmod +x /usr/local/bin/dumb-init && \
+    #
+    wget https://github.com/CiscoCloud/consul-cli/releases/download/v0.3.1/consul-cli_0.3.1_linux_amd64.tar.gz
+    tar xfz consul-cli_*.tar.gz \
+    mv consul-cli_*/consul-cli /usr/local/bin/
+    
 
 
 # The /consul/data dir is used by Consul to store state. The agent will be started
