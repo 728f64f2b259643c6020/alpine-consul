@@ -44,8 +44,8 @@ RUN apk add --no-cache bash wget tar && \
     wget -qO /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 && \
     chmod +x /usr/local/bin/dumb-init && \
     #
-    wget https://github.com/CiscoCloud/consul-cli/releases/download/v0.3.1/consul-cli_0.3.1_linux_amd64.tar.gz
-    tar xfz consul-cli_*.tar.gz \
+    wget https://github.com/CiscoCloud/consul-cli/releases/download/v0.3.1/consul-cli_0.3.1_linux_amd64.tar.gz && \
+    tar xfz consul-cli_*.tar.gz && \
     mv consul-cli_*/consul-cli /usr/local/bin/
     
 
