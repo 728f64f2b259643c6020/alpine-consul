@@ -35,6 +35,7 @@ RUN apk add --no-cache ca-certificates curl gnupg libcap openssl && \
     rm -rf /tmp/build && \
     apk del gnupg openssl && \
     rm -rf /root/.gnupg
+    cp /bin/consul /usr/local/bin/consul
 
 #
 RUN apk add --no-cache bash wget && \
@@ -47,6 +48,10 @@ RUN apk add --no-cache bash wget && \
     mv consul-cli_*/consul-cli /usr/local/bin/
     
 
+#ADD etc/supervisord.d/ /etc/supervisord.d/
+ADD etc/consul.d/agent.json /etc/consul.d/
+ADD opt/consul/bin/* /opt/consul/bin/
+ADD opt/consul/etc/* /opt/consul/etc/
 
 # The /consul/data dir is used by Consul to store state. The agent will be started
 # with /consul/config as the configuration directory so you can add additional
@@ -80,4 +85,6 @@ ENTRYPOINT ["bootstrap.sh"]
 # By default you'll get an insecure single-node development server that stores
 # everything in RAM, exposes a web UI and HTTP endpoints, and bootstraps itself.
 # Don't use this configuration for production.
-CMD ["agent", "-dev", "-client", "0.0.0.0"]
+# CMD ["agent", "-dev", "-client", "0.0.0.0"]
+
+CMD ["/opt/consul/bin/startup.sh"]
