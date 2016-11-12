@@ -36,6 +36,16 @@ RUN apk add --no-cache ca-certificates curl gnupg libcap openssl && \
     apk del gnupg openssl && \
     rm -rf /root/.gnupg
 
+#
+RUN apk add --no-cache bash wget \
+    && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
+    && chmod +x /usr/local/bin/go-github \
+    && echo "# dumb-init: $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex ".*_amd64$" --limit 1)" \
+    && wget -qO /usr/local/bin/dumb-init $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex ".*_amd64" --limit 1) \
+    && chmod +x /usr/local/bin/dumb-init \
+    && rm -f /usr/local/bin/go-github
+
+
 # The /consul/data dir is used by Consul to store state. The agent will be started
 # with /consul/config as the configuration directory so you can add additional
 # config files in that location.
