@@ -34,11 +34,12 @@ RUN apk add --no-cache ca-certificates curl gnupg libcap openssl && \
     cd /tmp && \
     rm -rf /tmp/build && \
     apk del gnupg openssl && \
-    rm -rf /root/.gnupg
+    rm -rf /root/.gnupg && \
     cp /bin/consul /usr/local/bin/consul
 
 #
-RUN apk add --no-cache bash wget && \
+RUN apk add --no-cache bash wget tar && \
+    mkdir -p /tmp/build && \
     cd /tmp/build && \
     wget -qO /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 && \
     chmod +x /usr/local/bin/dumb-init && \
