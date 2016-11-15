@@ -1,0 +1,24 @@
+zabbix-db:
+  container_name: zabbix-mariadb
+  image: mariadb:latest
+  volumes:
+    - /backups:/backups
+    - /etc/localtime:/etc/localtime:ro
+  environment:
+    - MARIADB_USER=zabbix
+    - MARIADB_PASS=password
+
+zabbix-server:
+  container_name: zabbix
+  image: zabbix:latest
+  ports:
+    - "80:80"
+    - "10051:10051"
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+  links:
+    - zabbix-mariadb
+  environment:
+    - ZS_DBHost=zabbix
+    - ZS_DBUser=zabbix
+    - ZS_DBPassword=password
