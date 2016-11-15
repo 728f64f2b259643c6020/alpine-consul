@@ -1,5 +1,5 @@
-# docker-compose.yml
-
+#docker-compose.yml
+#----------------------------------------------------------------------------------
 zabbix-db:
   container_name: zabbix-mariadb
   image: mariadb:latest
