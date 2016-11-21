@@ -2,7 +2,7 @@
 #----------------------------------------------------------------------------------
 zabbix-db:
   container_name: zabbix-mariadb
-  image: mariadb:latest
+  image: mariadb:10.0.28
   volumes:
     - /backups:/backups
     - /etc/localtime:/etc/localtime:ro
@@ -12,7 +12,7 @@ zabbix-db:
 
 zabbix-server:
   container_name: zabbix
-  image: zabbix:latest
+  image: zabbix:3.2.1
   ports:
     - "80:80"
     - "10051:10051"
